@@ -9,10 +9,10 @@ plugins {
 
 // TODO: Configure your extension here (please change the defaults!)
 qupathExtension {
-    name = "qupath-extension-template"
+    name = "Honey-Executer"
     group = "io.github.qupath"
-    version = "0.1.0-SNAPSHOT"
-    description = "A simple QuPath extension"
+    version = "0.3.0"
+    description = "Honey's 984th try"
     automaticModule = "io.github.qupath.extension.template"
 }
 
@@ -31,4 +31,16 @@ dependencies {
     testImplementation(libs.bundles.qupath)
     testImplementation(libs.junit)
 
+}
+
+// Force Java 21 toolchain & bytecode (required for QuPath 0.6.0 artifacts)
+java {
+    toolchain { languageVersion.set(JavaLanguageVersion.of(21)) }
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+tasks.withType<JavaCompile>().configureEach { options.release.set(21) }
+tasks.withType<org.gradle.api.tasks.compile.GroovyCompile>().configureEach {
+    groovyOptions.encoding = "UTF-8"
+    options.release.set(21)
 }
